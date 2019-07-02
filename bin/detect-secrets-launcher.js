@@ -3,7 +3,12 @@
 /* eslint-disable no-process-exit */
 'use strict'
 
+const debug = require('debug')('detect-secrets')
+const pkg = require('../package.json')
+
 const {isExecutableAvailableInPath, executeStrategy} = require('../src/strategies')
+
+debug(`${pkg.name} ${pkg.version}`)
 
 const PYTHON_PACKAGE_EXEC = 'detect-secrets-hook'
 const DOCKER_EXEC = 'docker'
