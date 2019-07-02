@@ -4,7 +4,6 @@ const debug = require('debug')('detect-secrets')
 const which = require('which')
 
 const PYTHON_PACKAGE_EXEC = 'detect-secrets-hook'
-const DOCKER_EXEC = 'docker'
 
 function isBinaryAvailableInPath(binary) {
   debug(`checking if the binary ${binary} for detect-secrets-hook exists`)
@@ -24,4 +23,3 @@ function isBinaryAvailableInPath(binary) {
 }
 
 const pythonStrategy = isBinaryAvailableInPath(PYTHON_PACKAGE_EXEC)
-const dockerStrategy = isBinaryAvailableInPath(DOCKER_EXEC)
