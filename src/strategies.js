@@ -6,33 +6,7 @@ const ChildProcess = require('child_process')
 const debug = require('debug')('detect-secrets')
 const which = require('which')
 
-const PYTHON_PACKAGE_EXEC = 'detect-secrets-hook'
-const DOCKER_EXEC = 'docker'
-const DOCKER_IMAGE_NAME = 'lirantal/detect-secrets'
-
-const pwd = process.cwd()
-const executableStrategies = [
-  {
-    type: 'python',
-    filePath: PYTHON_PACKAGE_EXEC
-  },
-  {
-    type: 'docker',
-    filePath: DOCKER_EXEC,
-    prefixCommandArguments: [
-      'run',
-      '-it',
-      '--rm',
-      '--name',
-      'detect-secrets',
-      '--volume',
-      `${pwd}:/usr/src/app`,
-      `${DOCKER_IMAGE_NAME}`
-    ]
-  }
-]
-
-function isExecutableAvailableInPath(executable) {
+module.exports.isExecutableAvailableInPath = function(executable) {
   debug(`checking if the executable ${executable} exists`)
   let resolved
   try {
@@ -49,7 +23,7 @@ function isExecutableAvailableInPath(executable) {
   return true
 }
 
-function executeStrategy(strategy) {
+module.exports.executeStrategy = function(strategy) {
   let hookCommandArguments = process.argv.slice(2) || []
   debug(
     `received ${hookCommandArguments.length} command arguments: ${JSON.stringify(
@@ -68,11 +42,3 @@ function executeStrategy(strategy) {
 
   process.exit(spawnResult.status)
 }
-
-executableStrategies.forEach(strategy => {
-  const strategyExists = isExecutableAvailableInPath(strategy.filePath)
-  if (strategyExists) {
-    executeStrategy(strategy)
-    process.exit(1)
-  }
-})
