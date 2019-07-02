@@ -7,12 +7,12 @@ const which = require('which')
 
 const PYTHON_PACKAGE_EXEC = 'detect-secrets-hook'
 
-function isBinaryAvailableInPath(binary) {
-  debug(`checking if the binary ${binary} for detect-secrets-hook exists`)
+function isExecutableAvailableInPath(executable) {
+  debug(`checking if the executable ${executable} exists`)
   let resolved
   try {
-    resolved = which.sync(binary)
-    debug(`found binary ${binary} at: ${resolved}`)
+    resolved = which.sync(executable)
+    debug(`found executable ${executable} at: ${resolved}`)
   } catch (error) {
     debug(error)
   }
@@ -24,7 +24,7 @@ function isBinaryAvailableInPath(binary) {
   return true
 }
 
-const pythonStrategy = isBinaryAvailableInPath(PYTHON_PACKAGE_EXEC)
+const pythonStrategy = isExecutableAvailableInPath(PYTHON_PACKAGE_EXEC)
 if (pythonStrategy) {
   const hookCommandArguments = process.argv.slice(2) || []
   debug(
