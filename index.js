@@ -1,11 +1,19 @@
+/* eslint-disable security/detect-child-process */
+/* eslint-disable no-process-exit */
 'use strict'
 
-// eslint-disable-next-line security/detect-child-process
 const ChildProcess = require('child_process')
 const debug = require('debug')('detect-secrets')
 const which = require('which')
 
 const PYTHON_PACKAGE_EXEC = 'detect-secrets-hook'
+
+const executableStrategies = [
+  {
+    type: 'python',
+    filePath: PYTHON_PACKAGE_EXEC
+  }
+]
 
 function isExecutableAvailableInPath(executable) {
   debug(`checking if the executable ${executable} exists`)
@@ -24,8 +32,7 @@ function isExecutableAvailableInPath(executable) {
   return true
 }
 
-const pythonStrategy = isExecutableAvailableInPath(PYTHON_PACKAGE_EXEC)
-if (pythonStrategy) {
+function executeStrategy(strategy) {
   const hookCommandArguments = process.argv.slice(2) || []
   debug(
     `received ${hookCommandArguments.length} command arguments: ${JSON.stringify(
@@ -33,11 +40,18 @@ if (pythonStrategy) {
     )}`
   )
 
-  const spawnResult = ChildProcess.spawnSync(PYTHON_PACKAGE_EXEC, hookCommandArguments, {
+  const spawnResult = ChildProcess.spawnSync(strategy.filePath, hookCommandArguments, {
     stdio: 'inherit',
     shell: true
   })
 
-  // eslint-disable-next-line no-process-exit
   process.exit(spawnResult.status)
 }
+
+executableStrategies.forEach(strategy => {
+  const strategyExists = isExecutableAvailableInPath(strategy.filePath)
+  if (strategyExists) {
+    executeStrategy(strategy)
+    process.exit(1)
+  }
+})
