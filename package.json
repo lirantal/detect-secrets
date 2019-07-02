@@ -1,7 +1,7 @@
 {
   "name": "detect-secrets",
   "version": "0.0.0-development",
-  "description": "A Node.js wrapper for yelp's detect-secrets",
+  "description": "A developer-friendly secrets detection tool for CI and pre-commit hooks based on Yelp's detect-secrets",
   "bin": {
     "detect-secrets-launcher": "./bin/detect-secrets-launcher.js"
   },

@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-  A Node.js wrapper for yelp's detect-secrets 
+  A developer-friendly secrets detection tool for CI and pre-commit hooks
 </p>
 
 <p align="center">
@@ -18,9 +18,23 @@
 
 # About
 
-detect-secrets
+The `detect-secrets` npm package is a Node.js-based wrapper for Yelp's [detect-secrets](https://github.com/Yelp/detect-secrets) tool that aims to provide an accessible and developer-friendly method of introducing secrets detection in pre-commit hooks.
 
-A Node.js wrapper for yelp's detect-secrets
+Yelp's detect-secrets is based on Python and requires explicit installation from developers. Moreover, its installation may be challenging in different operating systems. `detect-secrets` aims to alleviate this challenge by:
+
+1. Attempt to locate Yelp's detect-secrets tool, and if it exists in the path to execute it.
+
+If it fails it continues to:
+
+2. Attempt to locate the docker binary and if it exists it will download and execute the docker container for [lirantal/detect-secrets](https://github.com/lirantal/docker-detect-secrets) which has Yelp's detect-secrets inside the image.
+
+If this fails as well:
+
+3. Exit with a warning message
+
+--
+
+The above described fallback strategy is used to find an available method of executing the detect-secrets tool to protect the developer from leaking secrets into source code control.
 
 # Install
 
@@ -28,16 +42,46 @@ A Node.js wrapper for yelp's detect-secrets
 npm install --save detect-secrets
 ```
 
+This will expose `detect-secrets-launcher` Node.js executable file.
+
+Another way to invoke it is with npx which will download and execute the detect-secrets wrapper on the fly:
+
+```bash
+npx detect-secrets [arguments]
+```
+
 # Usage
 
+If you're using `husky` and `lint-staged` to manage pre-commit hooks configuration and running static code analysis on staged files, then enabling secrets detection is as simple as adding another lint-staged entry.
+
+A typical setup will look like this as an example:
+
 ```js
-// @TODO
-const {} = require('detect-secrets')
+"husky": {
+  "hooks": {
+    "pre-commit": "lint-staged"
+  },
+},
+"lint-staged": {
+  "linters": {
+    "**/*.js": [
+      "detect-secrets-launcher --baseline .secrets-baseline"
+    ]
+  }
+}
 ```
+
+If you're not using a baseline file (it is created using Yelp's server-side detect-secrets tool) then you can simply omit this out and keep it as simple as `detect-secrets-launcher`.
 
 # Example
 
-<!-- TODO -->
+To scan the `index.js` file within a repository for the potential of leaked secrets inside it run the following:
+
+```bash
+detect-secrets-launcher index.js
+```
+
+Note that `index.js` has to be staged and versioned control. Any other plain file that is not known to git will not be scanned.
 
 # Contributing
 
