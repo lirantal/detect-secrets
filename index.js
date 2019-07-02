@@ -33,8 +33,11 @@ if (pythonStrategy) {
     )}`
   )
 
-  ChildProcess.spawnSync(PYTHON_PACKAGE_EXEC, hookCommandArguments, {
+  const spawnResult = ChildProcess.spawnSync(PYTHON_PACKAGE_EXEC, hookCommandArguments, {
     stdio: 'inherit',
     shell: true
   })
+
+  // eslint-disable-next-line no-process-exit
+  process.exit(spawnResult.status)
 }
