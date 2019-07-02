@@ -24,7 +24,7 @@ module.exports.isExecutableAvailableInPath = function(executable) {
 }
 
 module.exports.executeStrategy = function(strategy) {
-  let hookCommandArguments = process.argv.slice(2) || []
+  let hookCommandArguments = process.argv.slice(2)
   debug(
     `received ${hookCommandArguments.length} command arguments: ${JSON.stringify(
       hookCommandArguments
