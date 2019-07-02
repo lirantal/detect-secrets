@@ -1,5 +1,7 @@
 'use strict'
 
+// eslint-disable-next-line security/detect-child-process
+const ChildProcess = require('child_process')
 const debug = require('debug')('detect-secrets')
 const which = require('which')
 
@@ -23,3 +25,16 @@ function isBinaryAvailableInPath(binary) {
 }
 
 const pythonStrategy = isBinaryAvailableInPath(PYTHON_PACKAGE_EXEC)
+if (pythonStrategy) {
+  const hookCommandArguments = process.argv.slice(2) || []
+  debug(
+    `received ${hookCommandArguments.length} command arguments: ${JSON.stringify(
+      hookCommandArguments
+    )}`
+  )
+
+  ChildProcess.spawnSync(PYTHON_PACKAGE_EXEC, hookCommandArguments, {
+    stdio: 'inherit',
+    shell: true
+  })
+}
