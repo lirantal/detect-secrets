@@ -1,13 +1,10 @@
+/* eslint-disable security/detect-child-process */
 'use strict'
 
 const ChildProcess = require('child_process')
 jest.mock('child_process', () => {
   return {
-    spawnSync: jest.fn(() => {
-      //   return {
-      //     status: 0
-      //   }
-    })
+    spawnSync: jest.fn()
   }
 })
 
