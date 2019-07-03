@@ -19,7 +19,6 @@ const executableStrategies = [
     filePath: DOCKER_EXEC,
     prefixCommandArguments: [
       'run',
-      '-it',
       '--rm',
       '--name',
       'detect-secrets',
