@@ -28,7 +28,7 @@ describe('detect-secrets-launcher CLI', () => {
     ]
 
     const result = cli.start(executableStrategies)
-    expect(result.strategyExitCode).toBe(1)
+    expect(result.strategyExitCode).not.toBe(0)
     expect(result.strategiesInvoked).toBe(true)
   })
 
