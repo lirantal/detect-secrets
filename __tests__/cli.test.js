@@ -1,18 +1,46 @@
 /* eslint-disable security/detect-child-process */
 'use strict'
 
-const ChildProcess = require('child_process')
-const path = require('path')
-
-const executableCLI = path.join(__dirname, '../bin/detect-secrets-launcher.js')
+const cli = require('../src/cli')
 
 describe('detect-secrets-launcher CLI', () => {
-  test('when failed to spawn detect-secrets-hook should use exit code 1 and show warning', done => {
-    const processHandler = ChildProcess.spawn(executableCLI, ['fakeArgument'])
+  test('when successful to spawn detect-secrets-hook should use exit code 1', () => {
+    const executableStrategies = [
+      {
+        type: 'ls',
+        filePath: 'ls'
+      }
+    ]
 
-    processHandler.on('close', exitCode => {
-      expect(exitCode).toEqual(1)
-      done()
-    })
+    const result = cli.start(executableStrategies)
+    expect(result.strategyExitCode).toBe(0)
+    expect(result.strategiesInvoked).toBe(true)
+  })
+
+  test('when failed to spawn executable should return exit code 1', () => {
+    const executableStrategies = [
+      {
+        type: 'made up command',
+        filePath: 'ls',
+        // fake command arguments to make 'ls' command fail
+        prefixCommandArguments: ['-ala-s33s']
+      }
+    ]
+
+    const result = cli.start(executableStrategies)
+    expect(result.strategyExitCode).toBe(1)
+    expect(result.strategiesInvoked).toBe(true)
+  })
+
+  test('should not invoke strategy when not existing', () => {
+    const executableStrategies = [
+      {
+        type: 'made up command',
+        filePath: 'made up command'
+      }
+    ]
+
+    const result = cli.start(executableStrategies)
+    expect(result.strategiesInvoked).toBe(false)
   })
 })

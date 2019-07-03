@@ -40,5 +40,5 @@ module.exports.executeStrategy = function(strategy) {
     shell: true
   })
 
-  process.exit(spawnResult.status)
+  return spawnResult.status
 }

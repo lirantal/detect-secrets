@@ -1,14 +1,8 @@
 #!/usr/bin/env node
-/* eslint-disable security/detect-child-process */
 /* eslint-disable no-process-exit */
-'use strict'
-
 const debug = require('debug')('detect-secrets')
 const pkg = require('../package.json')
-
-const {isExecutableAvailableInPath, executeStrategy} = require('../src/strategies')
-
-debug(`${pkg.name} ${pkg.version}`)
+const cli = require('../src/cli')
 
 const PYTHON_PACKAGE_EXEC = 'detect-secrets-hook'
 const DOCKER_EXEC = 'docker'
@@ -36,16 +30,11 @@ const executableStrategies = [
   }
 ]
 
-let strategiesInvoked = false
-executableStrategies.forEach(strategy => {
-  const strategyExists = isExecutableAvailableInPath(strategy.filePath)
-  if (strategyExists) {
-    strategiesInvoked = true
-    executeStrategy(strategy)
-  }
-})
-
-if (!strategiesInvoked) {
+debug(`${pkg.name} ${pkg.version}`)
+const {strategyExitCode, strategiesInvoked} = cli.start(executableStrategies)
+if (strategiesInvoked) {
+  process.exit(strategyExitCode)
+} else {
   console.log(`${pkg.name} ${pkg.version}`)
   console.log('WARNING: could not execute tool to prevent you from committing secrets')
   console.log(

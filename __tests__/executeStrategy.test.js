@@ -23,7 +23,7 @@ describe('Strategies: executeStrategy', () => {
     process.argv = []
 
     const mockStrategy = {
-      type: 'python',
+      type: 'ls',
       filePath: 'ls'
     }
 
@@ -33,8 +33,9 @@ describe('Strategies: executeStrategy', () => {
       }
     })
 
-    executeStrategy(mockStrategy)
+    const exitCode = executeStrategy(mockStrategy)
 
+    expect(exitCode).toBe(0)
     expect(ChildProcess.spawnSync.mock.calls.length).toBe(1)
     expect(ChildProcess.spawnSync.mock.calls[0][1]).toEqual([])
   })
@@ -44,19 +45,20 @@ describe('Strategies: executeStrategy', () => {
 
     const mockedArguments = ['a', 'b', 'c']
     const mockStrategy = {
-      type: 'python',
+      type: 'ls',
       filePath: 'ls',
       prefixCommandArguments: mockedArguments
     }
 
     ChildProcess.spawnSync = jest.fn(() => {
       return {
-        status: 0
+        status: 1
       }
     })
 
-    executeStrategy(mockStrategy)
+    const exitCode = executeStrategy(mockStrategy)
 
+    expect(exitCode).toBe(1)
     expect(ChildProcess.spawnSync.mock.calls.length).toBe(1)
     expect(ChildProcess.spawnSync.mock.calls[0][1]).toEqual(mockedArguments)
   })
