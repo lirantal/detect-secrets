@@ -20,8 +20,6 @@ const executableStrategies = [
     prefixCommandArguments: [
       'run',
       '--rm',
-      '--name',
-      'detect-secrets',
       '--volume',
       `${pwd}:/usr/src/app`,
       `${DOCKER_IMAGE_NAME}`
