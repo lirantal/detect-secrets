@@ -6,7 +6,7 @@ const ChildProcess = require('child_process')
 const debug = require('debug')('detect-secrets')
 const which = require('which')
 
-module.exports.isExecutableAvailableInPath = function(executable) {
+function isExecutableAvailableInPath(executable) {
   debug(`checking if the executable ${executable} exists`)
   let resolved
   try {
@@ -23,7 +23,7 @@ module.exports.isExecutableAvailableInPath = function(executable) {
   return true
 }
 
-module.exports.executeStrategy = function(strategy) {
+function executeStrategy(strategy) {
   let hookCommandArguments = process.argv.slice(2)
   debug(
     `received ${hookCommandArguments.length} command arguments: ${JSON.stringify(
@@ -41,4 +41,9 @@ module.exports.executeStrategy = function(strategy) {
   })
 
   return spawnResult.status
+}
+
+module.exports = {
+  isExecutableAvailableInPath,
+  executeStrategy
 }

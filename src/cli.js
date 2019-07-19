@@ -9,7 +9,7 @@ function start(executableStrategies) {
   let strategiesInvoked = false
   executableStrategies.forEach(strategy => {
     const strategyExists = isExecutableAvailableInPath(strategy.filePath)
-    if (strategyExists) {
+    if (strategyExists && !strategiesInvoked) {
       strategiesInvoked = true
       strategyExitCode = executeStrategy(strategy)
     }
