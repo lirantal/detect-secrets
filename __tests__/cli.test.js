@@ -2,7 +2,6 @@
 'use strict'
 
 const cli = require('../src/cli')
-// const strategies = require('../src/strategies')
 
 describe('detect-secrets-launcher CLI', () => {
   test('when successful to spawn detect-secrets-hook should use exit code 1', () => {
@@ -44,22 +43,4 @@ describe('detect-secrets-launcher CLI', () => {
     const result = cli.start(executableStrategies)
     expect(result.strategiesInvoked).toBe(false)
   })
-
-  // test('should only invoke one strategy if more than one exists', () => {
-  //   // const spy = jest.spyOn(strategies, 'executeStrategy')
-  //   const executableStrategies = [
-  //     {
-  //       type: 'ls',
-  //       filePath: 'ls'
-  //     },
-  //     {
-  //       type: 'ls',
-  //       filePath: 'ls'
-  //     }
-  //   ]
-
-  //   const result = cli.start(executableStrategies)
-  //   expect(result.strategiesInvoked).toBe(true)
-  //   // expect(spy).toHaveBeenCalledTimes(1)
-  // })
 })
