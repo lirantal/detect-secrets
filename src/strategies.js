@@ -36,9 +36,19 @@ function executeStrategy(strategy) {
   }
 
   const spawnResult = ChildProcess.spawnSync(strategy.filePath, hookCommandArguments, {
-    stdio: 'inherit',
     shell: true
   })
+
+  console.log(spawnResult.stdout.toString('utf-8'))
+  console.error(spawnResult.stderr.toString('utf-8'))
+
+  const stderr = spawnResult.stderr.toString('utf-8')
+  const stringFound = stderr.match(/The baseline file was updated/g)
+  if (stringFound) {
+    // force a 0 status code as this isn't an actual error
+    // ref: https://github.com/Yelp/detect-secrets/issues/212
+    return 0
+  }
 
   return spawnResult.status
 }
