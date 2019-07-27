@@ -29,7 +29,9 @@ describe('Strategies: executeStrategy', () => {
 
     ChildProcess.spawnSync = jest.fn(() => {
       return {
-        status: 0
+        status: 0,
+        stdout: '',
+        stderr: ''
       }
     })
 
@@ -52,7 +54,9 @@ describe('Strategies: executeStrategy', () => {
 
     ChildProcess.spawnSync = jest.fn(() => {
       return {
-        status: 1
+        status: 1,
+        stdout: '',
+        stderr: ''
       }
     })
 
