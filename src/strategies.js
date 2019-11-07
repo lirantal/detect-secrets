@@ -35,10 +35,14 @@ function executeStrategy(strategy) {
     hookCommandArguments = strategy.prefixCommandArguments.concat(hookCommandArguments)
   }
 
+  debug(`executing [${strategy.filePath}] with command arguments:`)
+  debug(hookCommandArguments)
+
   const spawnResult = ChildProcess.spawnSync(strategy.filePath, hookCommandArguments, {
     shell: true
   })
 
+  debug(`exited with code: ${spawnResult.status}`)
   console.log(spawnResult.stdout.toString('utf-8'))
   console.error(spawnResult.stderr.toString('utf-8'))
 
