@@ -52,6 +52,16 @@ npx detect-secrets [arguments]
 
 # Usage
 
+If you're using `husky` to manage pre-commit hooks configuration, then enabling secrets detection is as simple as adding another hook entry.
+
+```js
+"husky": {
+    "hooks": {
+      "pre-commit": "detect-secrets-launcher src/*"
+    }
+  }
+```
+
 If you're using `husky` and `lint-staged` to manage pre-commit hooks configuration and running static code analysis on staged files, then enabling secrets detection is as simple as adding another lint-staged entry.
 
 A typical setup will look like this as an example:
