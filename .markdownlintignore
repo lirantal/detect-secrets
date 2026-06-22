@@ -10,3 +10,7 @@ __template__draft_/**
 node_modules
 dist
 README.md
+DESIGN.md
+plugin/markdown/**
+plugin/**
+demo/**

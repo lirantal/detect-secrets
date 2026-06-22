@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: 24.x
       - name: install dependencies
-        run: npm ci
+        run: npm install --ignore-scripts --legacy-peer-deps --engine-strict=false --allow-git=true --legacy-peer-deps --engine-strict=false --allow-git=true
       - name: build project
         run: npm run build
       - name: Create Release Pull Request or Publish to npm

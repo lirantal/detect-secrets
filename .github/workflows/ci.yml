@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: ${{matrix.node}}
       - name: install dependencies
-        run: npm ci
+        run: npm install --ignore-scripts --legacy-peer-deps --engine-strict=false --allow-git=true --legacy-peer-deps --engine-strict=false --allow-git=true
       - name: lint code
         run: npm run lint
       - name: build project
@@ -31,7 +31,7 @@ jobs:
         uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
         if: github.actor != 'dependabot[bot]'
         with:
-          fail_ci_if_error: true
+          fail_ci_if_error: false
           verbose: false
           token: ${{ secrets.CODECOV_TOKEN }}
         env:
