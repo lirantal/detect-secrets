@@ -20,7 +20,10 @@
     "docs": "npm run docs:code && npm run docs:api",
     "docs:api": "doxdox *.js --layout bootstrap --output docs/index.html",
     "docs:code": "docco *.js --output docs/code",
-    "semantic-release": "semantic-release"
+    "build": "echo \"No build step configured\"",
+    "lint:markdown": "markdownlint -c .github/.markdownlint.yml '**/**.md'",
+    "version": "changeset version",
+    "release": "changeset publish"
   },
   "author": {
     "name": "Liran Tal",
@@ -74,7 +77,9 @@
     "lint-staged": "^8.1.0",
     "opn-cli": "^3.1.0",
     "prettier-standard": "^8.0.1",
-    "semantic-release": "^15.3.2"
+    "@changesets/changelog-github": "^0.6.0",
+    "@changesets/cli": "^2.31.0",
+    "markdownlint-cli": "0.45.0"
   },
   "jest": {
     "testEnvironment": "node",
@@ -181,26 +186,6 @@
       "ecmaFeatures": {
         "impliedStrict": true
       }
-    }
-  },
-  "release": {
-    "branch": "master",
-    "analyzeCommits": {
-      "preset": "angular",
-      "releaseRules": [
-        {
-          "type": "docs",
-          "release": "patch"
-        },
-        {
-          "type": "refactor",
-          "release": "patch"
-        },
-        {
-          "type": "style",
-          "release": "patch"
-        }
-      ]
     }
   },
   "publishConfig": {
