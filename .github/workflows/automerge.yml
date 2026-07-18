@@ -1,0 +1,39 @@
+name: automerge
+
+on:
+  pull_request:
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+  check_run:
+    types:
+      - completed
+  status: {}
+
+permissions: {}   # deny-all at workflow level; each job declares only what it needs
+
+jobs:
+  automerge:
+    name: Automerge
+    runs-on: ubuntu-latest
+    if: github.event_name != 'check_run' || github.event.check_run.name != 'Automerge'
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: read
+      statuses: read
+    steps:
+      - name: Merge eligible pull requests
+        uses: lirantal/github-action-automerge@8ea9b60ae1fe716a5128fefa26f3df1ba8417742 # 1.0.1
+        with:
+          label: automerge
+          merge-method: squash
+          green-observations-required: "4"
+          poll-interval-seconds: "60"
+          timeout-seconds: "3600"
+          ignored-check-names: Automerge
