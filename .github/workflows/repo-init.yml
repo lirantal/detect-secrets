@@ -1,0 +1,37 @@
+name: Repository init
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/repo-init.yml'  # only fires when this file itself changes
+  schedule:
+    - cron: '0 9 * * 1'   # Every Monday at 09:00 UTC
+
+permissions: {}   # deny-all at workflow level; each job declares only what it needs
+
+jobs:
+  create-label:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Create automerge label
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create "automerge" \
+            --repo "${{ github.repository }}" \
+            --color "0075ca" \
+            --description "Merge this PR automatically once checks pass" \
+            --force
+      - name: Create dependencies label
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create "dependencies" \
+            --repo "${{ github.repository }}" \
+            --color "0366d6" \
+            --description "Pull requests that update a dependency" \
+            --force
