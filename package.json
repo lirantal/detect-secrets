@@ -21,7 +21,7 @@
     "docs:api": "doxdox *.js --layout bootstrap --output docs/index.html",
     "docs:code": "docco *.js --output docs/code",
     "build": "echo \"No build step configured\"",
-    "lint:markdown": "markdownlint -c .github/.markdownlint.yml '**/**.md'",
+    "lint:markdown": "markdownlint -c .github/.markdownlint.yml -i 'apm_modules/**' -i '.git' -i '__tests__' -i '.github' -i '.changeset' -i 'CODE_OF_CONDUCT.md' -i 'CHANGELOG.md' -i 'docs/**' -i '.superpowers/**' -i 'node_modules' -i 'dist' '**/**.md'",
     "version": "changeset version",
     "release": "changeset publish"
   },
