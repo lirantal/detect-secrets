@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "debug": "^4.3.3",
-    "which": "^2.0.2"
+    "which": "^7.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.2.1",
