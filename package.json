@@ -78,7 +78,7 @@
     "opn-cli": "^5.0.0",
     "prettier-standard": "^8.0.1",
     "@changesets/changelog-github": "^0.6.0",
-    "@changesets/cli": "^2.31.0",
+    "@changesets/cli": "^3.0.3",
     "markdownlint-cli": "0.49.1",
     "semantic-release": "25.0.9"
   },
