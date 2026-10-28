@@ -72,7 +72,7 @@
     "eslint-plugin-promise": "^7.3.0",
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-standard": "^4.0.0",
-    "husky": "^1.2.1",
+    "husky": "^9.1.7",
     "jest": "23.6",
     "lint-staged": "^8.1.0",
     "opn-cli": "^5.0.0",
