@@ -1,5 +1,5 @@
 ---
-"detect-secrets": patch
+"detect-secrets": major
 ---
 
-Upgrade executable resolution to which 7 and require Node.js 24.15 or newer.
+Upgrade executable resolution to which 7. Require Node.js ^24.15.0 or >=26.0.0, dropping earlier Node 24 releases and unsupported Node 25.
