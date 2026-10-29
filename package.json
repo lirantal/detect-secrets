@@ -76,6 +76,7 @@
     "jest": "^30.5.2",
     "lint-staged": "^8.1.0",
     "opn-cli": "^5.0.0",
+    "prettier": "^3.9.9",
     "prettier-standard": "^8.0.1",
     "@changesets/changelog-github": "^0.6.0",
     "@changesets/cli": "^3.0.3",
