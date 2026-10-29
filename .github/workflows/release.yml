@@ -24,12 +24,14 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24.x
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
       - name: install dependencies
         run: npm install --ignore-scripts --legacy-peer-deps --engine-strict=false --allow-git=true --legacy-peer-deps --engine-strict=false --allow-git=true
       - name: build project
         run: npm run build
       - name: Create Release Pull Request or Publish to npm
-        uses: changesets/action@8488615a623b1b9c987934bb89eae8af6a946ac1 # v2.1.1
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
         with:
           publish: npm run release
           version: npm run version
@@ -37,4 +39,5 @@ jobs:
           title: "chore: new release candidate"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # Register lirantal/detect-secrets and release.yml as an npm trusted publisher.
+          NPM_TOKEN: ''
