@@ -23,7 +23,7 @@ jobs:
           node-version: '24.x'
 
       - name: Install dependencies
-        run: npm install --ignore-scripts --legacy-peer-deps --engine-strict=false --allow-git=true --legacy-peer-deps --engine-strict=false --allow-git=true
+        run: npm ci --legacy-peer-deps
 
       - name: Markdown Lint
         run: npm run lint:markdown || true

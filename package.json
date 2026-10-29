@@ -7,7 +7,7 @@
   },
   "engines": {
     "npm": ">=11.10.0",
-    "node": ">=24.0.0"
+    "node": ">=24.15.0"
   },
   "scripts": {
     "lint": "eslint .",
@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "debug": "^4.3.3",
-    "which": "^2.0.2"
+    "which": "^7.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.3",
@@ -73,7 +73,7 @@
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-standard": "^4.0.0",
     "husky": "^9.1.7",
-    "jest": "23.6",
+    "jest": "^30.5.2",
     "lint-staged": "^8.1.0",
     "opn-cli": "^5.0.0",
     "prettier-standard": "^8.0.1",
@@ -85,7 +85,6 @@
   "jest": {
     "testEnvironment": "node",
     "verbose": true,
-    "notify": true,
     "collectCoverage": true,
     "coverageThreshold": {
       "global": {
