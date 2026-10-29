@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: ${{matrix.node}}
       - name: install dependencies
-        run: npm install --ignore-scripts --legacy-peer-deps --engine-strict=false --allow-git=true --legacy-peer-deps --engine-strict=false --allow-git=true
+        run: npm ci --legacy-peer-deps
       - name: lint code
         run: npm run lint
       - name: build project

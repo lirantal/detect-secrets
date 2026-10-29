@@ -4,7 +4,10 @@
 const cli = require('../src/cli')
 
 describe('detect-secrets-launcher CLI', () => {
-  test('when successful to spawn detect-secrets-hook should use exit code 1', () => {
+  const originalArgv = process.argv
+  beforeEach(() => { process.argv = [process.execPath, 'detect-secrets-launcher'] })
+  afterEach(() => { process.argv = originalArgv })
+  test('when successful to spawn a strategy should return exit code 0', () => {
     const executableStrategies = [
       {
         type: 'ls',

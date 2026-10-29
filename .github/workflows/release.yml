@@ -27,16 +27,16 @@ jobs:
           registry-url: https://registry.npmjs.org
           package-manager-cache: false
       - name: install dependencies
-        run: npm install --ignore-scripts --legacy-peer-deps --engine-strict=false --allow-git=true --legacy-peer-deps --engine-strict=false --allow-git=true
+        run: npm ci --legacy-peer-deps
       - name: build project
         run: npm run build
       - name: Create Release Pull Request or Publish to npm
-        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
-          publish: npm run release
-          version: npm run version
-          commit: "chore: new release"
-          title: "chore: new release candidate"
+          publish-script: npm run release
+          version-script: npm run version
+          commit-message: "chore: new release"
+          pr-title: "chore: new release candidate"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Register lirantal/detect-secrets and release.yml as an npm trusted publisher.

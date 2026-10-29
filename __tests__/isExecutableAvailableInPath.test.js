@@ -3,6 +3,10 @@
 const {isExecutableAvailableInPath} = require('../src/strategies')
 
 describe('Strategies: isExecutableAvailableInPath', () => {
+  test('resolves the running Node executable using the real which dependency', () => {
+    expect(isExecutableAvailableInPath(process.execPath)).toBe(true)
+  })
+
   test('should find a binary and result in success', () => {
     const executable = 'ls'
     const result = isExecutableAvailableInPath(executable)

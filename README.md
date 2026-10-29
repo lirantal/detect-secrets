@@ -36,6 +36,8 @@ The above described fallback strategy is used to find an available method of exe
 
 # Install
 
+Requires Node.js 24.15+ within Node 24, or Node.js 26+. Node.js 25 is not supported by which 7.
+
 ```bash
 npm install --save detect-secrets
 ```
