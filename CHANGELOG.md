@@ -1,6 +1,6 @@
 # detect-secrets
 
-## 0.0.0
+## 1.0.7
 
 ### Major Changes
 
