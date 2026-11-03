@@ -26,6 +26,8 @@ jobs:
           node-version: 24.x
           registry-url: https://registry.npmjs.org
           package-manager-cache: false
+      - name: Set up pinned npm
+        run: bash "${{ github.workspace }}/.github/scripts/setup-npm.sh"
       - name: install dependencies
         run: npm ci --legacy-peer-deps
       - name: build project
