@@ -80,3 +80,14 @@ exempt from its cooldown and may arrive earlier; leave them unmerged until the
 policy cutoff. Keep the install-time release-age configuration enabled.
 Because `npm ci` trusts locked versions without rechecking publication age,
 validate newly locked versions when reviewing an upgrade.
+
+## Package-manager pin
+
+Run `bash .github/scripts/setup-npm.sh` from the repository to install the exact
+npm version in `package.json#packageManager`, then install dependencies using
+the existing project setup instructions. CI uses the same setup script.
+
+Upgrade the pin and matching lockfile metadata together in a maintenance PR.
+Choose a release at least 30 days old and run the project checks with it.
+Keep `.npmrc` and `pnpm-workspace.yaml` security policies enabled.
+Periodic upgrade automation is not configured.

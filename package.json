@@ -192,5 +192,6 @@
   "publishConfig": {
     "provenance": true,
     "access": "public"
-  }
+  },
+  "packageManager": "npm@11.21.0"
 }
